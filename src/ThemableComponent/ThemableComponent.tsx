@@ -15,12 +15,13 @@ interface ThemableComponentProps {
 export const ThemableComponent: React.SFC<ThemableComponentProps> = props => {
   const { colorSets, render } = props;
 
-  const colorSetNames = Object.keys(colorSets);
   const [colorSetName, useColorSetName] = useState("");
 
   const onChange = (name: string) => {
     useColorSetName(name);
   };
+
+  const colorSetNames = Object.keys(colorSets);
 
   return (
     <div style={{ display: "inline-block" }}>

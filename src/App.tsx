@@ -1,23 +1,27 @@
-import React, {useReducer} from 'react';
-import {ColorSet, OnColorChangeArgs} from './Colors/Set';
-import {AddSet} from './AddSet/AddSet';
-import {SimpleColorSet} from './Colors/Colors';
-import {ThemableFillButton, ThemableTextButton, ThemableOutlineButton} from './ThemableComponent/ThemableButton';
-import {ThemableComponent} from './ThemableComponent/ThemableComponent';
-import { render } from 'react-dom';
+import React, { useReducer } from "react";
+import { ColorSet, OnColorChangeArgs } from "./Colors/Set";
+import { AddSet } from "./AddSet/AddSet";
+import { SimpleColorSet } from "./Colors/Colors";
+import {
+  ThemableFillButton,
+  ThemableTextButton,
+  ThemableOutlineButton
+} from "./ThemableComponent/ThemableButton";
+import { ThemableComponent } from "./ThemableComponent/ThemableComponent";
+import { DefaultColorSet } from "./Themes/Material";
 
 interface ApplicationState {
   [name: string]: SimpleColorSet;
 }
 
 interface NewSet {
-  type: 'NewSet';
+  type: "NewSet";
   name: string;
   set: SimpleColorSet;
 }
 
 interface EditSet {
-  type: 'EditSet';
+  type: "EditSet";
   name: string;
   slot: keyof SimpleColorSet;
   value: string;
@@ -29,28 +33,31 @@ interface ApplicationStateReducer {
   (state: ApplicationState, action: Action): ApplicationState;
 }
 
-function editSet(prevState: ApplicationState, action: EditSet): ApplicationState {
-  const {name, slot, value} = action;
+function editSet(
+  prevState: ApplicationState,
+  action: EditSet
+): ApplicationState {
+  const { name, slot, value } = action;
   const set = {
     ...prevState[name],
     [slot]: value
   };
   return {
     ...prevState,
-    [name]: set,
+    [name]: set
   };
 }
 
 function newSet(prevState: ApplicationState, action: NewSet): ApplicationState {
-  const {name, set} = action;
-  return {...prevState, [name]: set};
+  const { name, set } = action;
+  return { ...prevState, [name]: set };
 }
 
 function reducer(state: ApplicationState, action: Action) {
   switch (action.type) {
-    case 'NewSet':
+    case "NewSet":
       return newSet(state, action);
-    case 'EditSet':
+    case "EditSet":
       return editSet(state, action);
     default:
       throw new Error();
@@ -63,49 +70,59 @@ export const Application: React.SFC = () => {
   const onColorChange = (args: OnColorChangeArgs) => {
     dispatch({
       ...args,
-      type: 'EditSet',
+      type: "EditSet"
     });
   };
 
   const onAddSet = (name: string) => {
-    const set = {
-      container: '#ffffff',
-      accent: '#6200ee',
-      high: '#000000',
-      medium: '#666666',
-      low: '#999999',
-    };
-
     dispatch({
-      type: 'NewSet',
-      set,
-      name,
+      type: "NewSet",
+      set: DefaultColorSet,
+      name
     });
   };
 
   const renderColorSets = () => {
-    return Object.keys(state).map((name) => {
+    return Object.keys(state).map(name => {
       const colorSet = state[name];
       return (
-        <ColorSet key={name} setName={name} colorSet={colorSet} onColorChange={onColorChange}/>
+        <ColorSet
+          key={name}
+          setName={name}
+          colorSet={colorSet}
+          onColorChange={onColorChange}
+        />
       );
-    })
+    });
   };
 
   return (
     <div>
-      <AddSet onAddSet={onAddSet} existingSetNames={Object.keys(state)}/>
+      <AddSet onAddSet={onAddSet} existingSetNames={Object.keys(state)} />
       {renderColorSets()}
-      <hr/>
+      <hr />
       <ThemableComponent
         colorSets={state}
-        render={props => <ThemableTextButton icon='add' textLabel='Text Button' {...props} />}/>
+        render={props => (
+          <ThemableTextButton icon="add" textLabel="Text Button" {...props} />
+        )}
+      />
       <ThemableComponent
         colorSets={state}
-        render={props => <ThemableFillButton icon='add' textLabel='Fill Button' {...props} />}/>
+        render={props => (
+          <ThemableFillButton icon="add" textLabel="Fill Button" {...props} />
+        )}
+      />
       <ThemableComponent
         colorSets={state}
-        render={props => <ThemableOutlineButton icon='send' textLabel='Outline Button' {...props} />}/>
+        render={props => (
+          <ThemableOutlineButton
+            icon="send"
+            textLabel="Outline Button"
+            {...props}
+          />
+        )}
+      />
     </div>
   );
-}
+};

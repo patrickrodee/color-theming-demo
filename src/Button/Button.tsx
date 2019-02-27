@@ -1,6 +1,5 @@
 import React from "react";
 import { Color, SimpleColorSet, ColorMap } from "../Colors/Colors";
-import { MaterialPrimary } from "../Themes/Material";
 import "./Button.scss";
 
 export interface ThemableComponentProps {
