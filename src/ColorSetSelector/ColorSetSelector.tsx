@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface ColorSetSelectorProps {
   selected: string;
@@ -6,7 +6,7 @@ interface ColorSetSelectorProps {
   onChange: (name: string) => void;
 }
 
-export const ColorSetSelector: React.SFC<ColorSetSelectorProps> = props => {
+export const ColorSetSelector: React.SFC<ColorSetSelectorProps> = (props) => {
   const { available, onChange } = props;
 
   const onSelectChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
@@ -16,10 +16,10 @@ export const ColorSetSelector: React.SFC<ColorSetSelectorProps> = props => {
 
   return (
     <select value={props.selected} onChange={onSelectChange}>
-      <option value="" disabled>
+      <option value='' disabled>
         Choose a color set
       </option>
-      {available.map(name => (
+      {available.map((name) => (
         <option key={name} value={name}>
           {name}
         </option>

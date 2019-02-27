@@ -5,10 +5,10 @@
   width: 400px;
   margin: 1rem;
 
-  input[type="color"] {
-    visibility: hidden; 
+  input[type='color'] {
+    visibility: hidden;
   }
-  
+
   &__col {
     display: flex;
     flex-direction: column;
@@ -16,7 +16,7 @@
     position: relative;
     overflow: visible;
   }
-  
+
   &__cell {
     position: relative;
     flex: 1 0 auto;

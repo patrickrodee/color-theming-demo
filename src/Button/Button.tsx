@@ -1,6 +1,6 @@
-import React from "react";
-import { Color, SimpleColorSet, ColorMap } from "../Colors/Colors";
-import "./Button.scss";
+import React from 'react';
+import { Color, SimpleColorSet, ColorMap } from '../Colors/Colors';
+import './Button.scss';
 
 export interface ThemableComponentProps {
   colorMap: ColorMap;
@@ -75,10 +75,10 @@ export interface ButtonContentProps {
 
 type TextButtonProps = ButtonProps<TextButtonColorMap>;
 
-export const TextButton: React.SFC<TextButtonProps> = props => {
+export const TextButton: React.SFC<TextButtonProps> = (props) => {
   const styles = {
     containerStyles: {
-      backgroundColor: "transparent"
+      backgroundColor: 'transparent'
     },
     iconStyles: {
       color: props.colorMap.icon()
@@ -90,18 +90,16 @@ export const TextButton: React.SFC<TextButtonProps> = props => {
 
   return (
     <button
-      className="mdc-button"
+      className='mdc-button'
       style={styles.containerStyles}
-      disabled={props.disabled}
-    >
+      disabled={props.disabled}>
       <i
-        className="material-icons mdc-button__icon"
+        className='material-icons mdc-button__icon'
         aria-hidden={true}
-        style={styles.iconStyles}
-      >
+        style={styles.iconStyles}>
         {props.icon}
       </i>
-      <span className="mdc-button__label" style={styles.textLabelStyles}>
+      <span className='mdc-button__label' style={styles.textLabelStyles}>
         {props.textLabel}
       </span>
     </button>
@@ -110,7 +108,7 @@ export const TextButton: React.SFC<TextButtonProps> = props => {
 
 type FillButtonProps = ButtonProps<FillButtonColorMap>;
 
-export const FillButton: React.SFC<FillButtonProps> = props => {
+export const FillButton: React.SFC<FillButtonProps> = (props) => {
   const containerStyles = {
     backgroundColor: props.colorMap.container()
   };
@@ -125,18 +123,16 @@ export const FillButton: React.SFC<FillButtonProps> = props => {
 
   return (
     <button
-      className="mdc-button"
+      className='mdc-button'
       style={containerStyles}
-      disabled={props.disabled}
-    >
+      disabled={props.disabled}>
       <i
-        className="material-icons mdc-button__icon"
+        className='material-icons mdc-button__icon'
         aria-hidden={true}
-        style={iconStyles}
-      >
+        style={iconStyles}>
         {props.icon}
       </i>
-      <span className="mdc-button__label" style={textLabelStyles}>
+      <span className='mdc-button__label' style={textLabelStyles}>
         {props.textLabel}
       </span>
     </button>
@@ -145,7 +141,7 @@ export const FillButton: React.SFC<FillButtonProps> = props => {
 
 type OutlineButtonProps = ButtonProps<OutlineButtonColorMap>;
 
-export const OutlineButton: React.SFC<OutlineButtonProps> = props => {
+export const OutlineButton: React.SFC<OutlineButtonProps> = (props) => {
   const containerStyles = {
     backgroundColor: props.colorMap.container(),
     border: `1px solid ${props.colorMap.outline()}`
@@ -161,18 +157,16 @@ export const OutlineButton: React.SFC<OutlineButtonProps> = props => {
 
   return (
     <button
-      className="mdc-button"
+      className='mdc-button'
       style={containerStyles}
-      disabled={props.disabled}
-    >
+      disabled={props.disabled}>
       <i
-        className="material-icons mdc-button__icon"
+        className='material-icons mdc-button__icon'
         aria-hidden={true}
-        style={iconStyles}
-      >
+        style={iconStyles}>
         {props.icon}
       </i>
-      <span className="mdc-button__label" style={textLabelStyles}>
+      <span className='mdc-button__label' style={textLabelStyles}>
         {props.textLabel}
       </span>
     </button>

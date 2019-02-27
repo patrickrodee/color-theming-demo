@@ -1,27 +1,27 @@
-import React, { useReducer } from "react";
-import { ColorSet, OnColorChangeArgs } from "./Colors/Set";
-import { AddSet } from "./AddSet/AddSet";
-import { SimpleColorSet } from "./Colors/Colors";
+import React, { useReducer } from 'react';
+import { ColorSet, OnColorChangeArgs } from './Colors/Set';
+import { AddSet } from './AddSet/AddSet';
+import { SimpleColorSet } from './Colors/Colors';
 import {
   ThemableFillButton,
   ThemableTextButton,
   ThemableOutlineButton
-} from "./ThemableComponent/ThemableButton";
-import { ThemableComponent } from "./ThemableComponent/ThemableComponent";
-import { DefaultColorSet } from "./Themes/Material";
+} from './ThemableComponent/ThemableButton';
+import { ThemableComponent } from './ThemableComponent/ThemableComponent';
+import { DefaultColorSet } from './Themes/Material';
 
-interface ApplicationState {
+interface AppState {
   [name: string]: SimpleColorSet;
 }
 
 interface NewSet {
-  type: "NewSet";
+  type: 'NewSet';
   name: string;
   set: SimpleColorSet;
 }
 
 interface EditSet {
-  type: "EditSet";
+  type: 'EditSet';
   name: string;
   slot: keyof SimpleColorSet;
   value: string;
@@ -29,14 +29,14 @@ interface EditSet {
 
 type Action = NewSet | EditSet;
 
-interface ApplicationStateReducer {
-  (state: ApplicationState, action: Action): ApplicationState;
+interface AppStateReducer {
+  (state: AppState, action: Action): AppState;
 }
 
 function editSet(
-  prevState: ApplicationState,
+  prevState: AppState,
   action: EditSet
-): ApplicationState {
+): AppState {
   const { name, slot, value } = action;
   const set = {
     ...prevState[name],
@@ -48,42 +48,42 @@ function editSet(
   };
 }
 
-function newSet(prevState: ApplicationState, action: NewSet): ApplicationState {
+function newSet(prevState: AppState, action: NewSet): AppState {
   const { name, set } = action;
   return { ...prevState, [name]: set };
 }
 
-function reducer(state: ApplicationState, action: Action) {
+function reducer(state: AppState, action: Action) {
   switch (action.type) {
-    case "NewSet":
+    case 'NewSet':
       return newSet(state, action);
-    case "EditSet":
+    case 'EditSet':
       return editSet(state, action);
     default:
       throw new Error();
   }
 }
 
-export const Application: React.SFC = () => {
-  const [state, dispatch] = useReducer<ApplicationStateReducer>(reducer, {});
+export const App: React.SFC = () => {
+  const [state, dispatch] = useReducer<AppStateReducer>(reducer, {});
 
   const onColorChange = (args: OnColorChangeArgs) => {
     dispatch({
       ...args,
-      type: "EditSet"
+      type: 'EditSet'
     });
   };
 
   const onAddSet = (name: string) => {
     dispatch({
-      type: "NewSet",
+      type: 'NewSet',
       set: DefaultColorSet,
       name
     });
   };
 
   const renderColorSets = () => {
-    return Object.keys(state).map(name => {
+    return Object.keys(state).map((name) => {
       const colorSet = state[name];
       return (
         <ColorSet
@@ -103,22 +103,22 @@ export const Application: React.SFC = () => {
       <hr />
       <ThemableComponent
         colorSets={state}
-        render={props => (
-          <ThemableTextButton icon="add" textLabel="Text Button" {...props} />
+        render={(props) => (
+          <ThemableTextButton icon='add' textLabel='Text Button' {...props} />
         )}
       />
       <ThemableComponent
         colorSets={state}
-        render={props => (
-          <ThemableFillButton icon="add" textLabel="Fill Button" {...props} />
+        render={(props) => (
+          <ThemableFillButton icon='add' textLabel='Fill Button' {...props} />
         )}
       />
       <ThemableComponent
         colorSets={state}
-        render={props => (
+        render={(props) => (
           <ThemableOutlineButton
-            icon="send"
-            textLabel="Outline Button"
+            icon='send'
+            textLabel='Outline Button'
             {...props}
           />
         )}

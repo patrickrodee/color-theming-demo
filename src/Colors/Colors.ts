@@ -8,16 +8,8 @@ export interface SimpleColorSet {
   low: Color;
 }
 
-export interface ColorMap {};
+export interface ColorMap {}
 
 export interface ContainerColorMap extends ColorMap {
   container(): Color;
 }
-
-// export abstract class SurfaceColorMap implements ColorMap {
-//   protected colorSet: ColorSet;
-
-//   constructor(colorSet: ColorSet) {
-//     this.colorSet = colorSet;
-//   }
-// }

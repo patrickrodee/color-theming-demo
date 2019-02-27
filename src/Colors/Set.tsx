@@ -1,7 +1,7 @@
-import React, { useReducer } from "react";
-import { SimpleColorSet, Color } from "../Colors/Colors";
-import { ColorSlot } from "../Colors/ColorSlot";
-import "./Set.scss";
+import React, { useReducer } from 'react';
+import { SimpleColorSet, Color } from '../Colors/Colors';
+import { ColorSlot } from '../Colors/ColorSlot';
+import './Set.scss';
 
 export interface OnColorChangeArgs {
   name: string;
@@ -28,14 +28,14 @@ interface SetState {
 }
 
 interface EditContainerColor {
-  type: "EditContainerColor";
+  type: 'EditContainerColor';
   value: string;
 }
 
-type ColorSlots = "accent" | "high" | "medium" | "low";
+type ColorSlots = 'accent' | 'high' | 'medium' | 'low';
 
 interface EditOnColor {
-  type: "EditOnColor";
+  type: 'EditOnColor';
   name: ColorSlots;
   value: string;
 }
@@ -74,9 +74,9 @@ const editContainerColor: SetStateReducer<EditContainerColor> = (
 
 const reducer: SetStateReducer<Action> = (prevState, action) => {
   switch (action.type) {
-    case "EditContainerColor":
+    case 'EditContainerColor':
       return editContainerColor(prevState, action);
-    case "EditOnColor":
+    case 'EditOnColor':
       return editOnColor(prevState, action);
     default:
       throw new Error();
@@ -97,7 +97,7 @@ const hexToRGB = (hex: any): RGB => {
 };
 
 const luminanace = (hex: any): number => {
-  const adjustHex = hex.replace("#", "0x").toUpperCase();
+  const adjustHex = hex.replace('#', '0x').toUpperCase();
   const { r, g, b } = hexToRGB(adjustHex);
   var a = [r, g, b].map(function(v) {
     v /= 255;
@@ -109,15 +109,11 @@ const luminanace = (hex: any): number => {
 const contrast = (hex1: any, hex2: any): string => {
   const lum1 = luminanace(hex1) + 0.05;
   const lum2 = luminanace(hex2) + 0.05;
-  const oneOverTwo = lum1 / lum2;
-  const twoOverOne = lum2 / lum1;
-  if (oneOverTwo > twoOverOne) {
-    return oneOverTwo.toFixed(2);
-  }
-  return twoOverOne.toFixed(2);
+  const ratio = Math.max(lum1, lum2) / Math.min(lum1, lum2);
+  return ratio.toFixed(2);
 };
 
-export const ColorSet: React.SFC<SetProps> = props => {
+export const ColorSet: React.SFC<SetProps> = (props) => {
   const { colorSet: propColorSet } = props;
   const initialState: SetState = {
     ...propColorSet,
@@ -134,7 +130,7 @@ export const ColorSet: React.SFC<SetProps> = props => {
 
   const onContainerChange = (name: string, value: string) => {
     dispatch({
-      type: "EditContainerColor",
+      type: 'EditContainerColor',
       value
     });
 
@@ -147,7 +143,7 @@ export const ColorSet: React.SFC<SetProps> = props => {
 
   const onChange = (name: string, value: string) => {
     dispatch({
-      type: "EditOnColor",
+      type: 'EditOnColor',
       name: name as ColorSlots,
       value
     });
@@ -160,35 +156,35 @@ export const ColorSet: React.SFC<SetProps> = props => {
   };
 
   return (
-    <div style={{ display: "inline-block" }}>
+    <div style={{ display: 'inline-block' }}>
       <p>{props.setName}</p>
-      <div className="color-set">
+      <div className='color-set'>
         <ColorSlot
-          name="container"
+          name='container'
           color={state.container}
           onChange={onContainerChange}
         />
-        <div className="color-set__col">
+        <div className='color-set__col'>
           <ColorSlot
-            name="accent"
+            name='accent'
             color={state.accent}
             ratio={state.accentRatio}
             onChange={onChange}
           />
           <ColorSlot
-            name="high"
+            name='high'
             color={state.high}
             ratio={state.highRatio}
             onChange={onChange}
           />
           <ColorSlot
-            name="medium"
+            name='medium'
             color={state.medium}
             ratio={state.mediumRatio}
             onChange={onChange}
           />
           <ColorSlot
-            name="low"
+            name='low'
             color={state.low}
             ratio={state.lowRatio}
             onChange={onChange}
